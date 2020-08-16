@@ -156,6 +156,7 @@ public final class Constants {
     public static final String XML = "XML";
     public static final String YES = "Yes";
     public static final String ZERO = "0";
+    public static final String AUTH_FLAG = "AF";
 
     public static class Utils {
 

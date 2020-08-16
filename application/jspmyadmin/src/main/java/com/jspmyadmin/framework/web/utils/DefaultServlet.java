@@ -45,6 +45,7 @@ public class DefaultServlet extends HttpServlet {
 	private static final Logger _LOGGER = Logger.getLogger(DefaultServlet.class.getName());
 	private static final EncodeHelper ENCODE_HELPER = new EncodeHelperImpl();
 	private static final String INSTALL_URL = "/install.html";
+	private static final String AUTH_URL = "/auth.html";
 
 	private static ServletContext _context = null;
 	private static String _web_inf_path = null;
@@ -186,7 +187,6 @@ public class DefaultServlet extends HttpServlet {
 	 *
 	 * @param request
 	 * @param response
-	 * @param filterChain
 	 * @throws IOException
 	 * @throws ServletException
 	 */
@@ -199,7 +199,15 @@ public class DefaultServlet extends HttpServlet {
 		RequestAdaptor.REQUEST_MAP.put(Thread.currentThread().getId(), request);
 		if (ControllerUtil.PATH_MAP.containsKey(path)) {
 
-			if (!ConnectionFactory.isConfigured() && !INSTALL_URL.equals(path)) {
+			// redirect to login page if client hasn't logged in
+			String authFlag = (String)request.getSession().getAttribute(Constants.AUTH_FLAG);
+			if (authFlag == null && !AUTH_URL.equals(path)) {
+				response.sendRedirect(request.getContextPath() + AUTH_URL);
+				RequestAdaptor.REQUEST_MAP.remove(Thread.currentThread().getId());
+				return;
+			}
+
+			if (!ConnectionFactory.isConfigured() && !INSTALL_URL.equals(path) && !AUTH_URL.equals(path)) {
 				response.sendRedirect(request.getContextPath() + INSTALL_URL);
 				RequestAdaptor.REQUEST_MAP.remove(Thread.currentThread().getId());
 				return;

@@ -60,6 +60,7 @@ public final class AppConstants {
 	public static final String JSP_COMMON_ERROR = "common/Error.jsp";
 	public static final String JSP_COMMON_HOME = "common/Home.jsp";
 	public static final String JSP_COMMON_INSTALL = "common/Install.jsp";
+	public static final String JSP_COMMON_AUTH = "common/Auth.jsp";
 	public static final String JSP_COMMON_LOGIN = "common/Login.jsp";
 	public static final String JSP_COMMON_UNINSTALL = "common/Uninstall.jsp";
 	public static final String JSP_DATABASE_EVENT_CREATEEVENT = "database/event/CreateEvent.jsp";
